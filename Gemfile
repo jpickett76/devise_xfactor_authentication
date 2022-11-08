@@ -9,12 +9,13 @@ rails = case rails_version
         when "master"
           {github: "rails/rails"}
         when "default"
-          "~> 5.2"
+          "~> 6.0"
         else
           "~> #{rails_version}"
         end
 
 gem "rails", rails
+gem 'active_model_otp'
 
 if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.2.0')
   gem "test-unit", "~> 3.0"

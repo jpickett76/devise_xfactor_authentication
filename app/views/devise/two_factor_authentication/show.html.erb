@@ -7,7 +7,7 @@
 <p><%= flash[:notice] %></p>
 
 <%= form_tag([resource_name, :two_factor_authentication], :method => :put) do %>
-  <%= text_field_tag :code, '', autofocus: true %>
+  <%= text_field_tag :code %>
   <%= submit_tag "Submit" %>
 <% end %>
 

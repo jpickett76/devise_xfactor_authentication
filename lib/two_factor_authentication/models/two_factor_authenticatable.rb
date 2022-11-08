@@ -92,16 +92,13 @@ module Devise
         end
 
         def generate_totp_secret
-          # ROTP gem since version 5 to version 5.1
-          # at version 5.1 ROTP gem reinstates.
-          # Details: https://github.com/mdp/rotp/blob/master/CHANGELOG.md#510
-          ROTP::Base32.try(:random) || ROTP::Base32.random_base32
+          ROTP::Base32.random_base32
         end
 
         def create_direct_otp(options = {})
           # Create a new random OTP and store it in the database
           digits = options[:length] || self.class.direct_otp_length || 6
-          update_attributes(
+          update(
             direct_otp: random_base10(digits),
             direct_otp_sent_at: Time.now.utc
           )
@@ -122,7 +119,7 @@ module Devise
         end
 
         def clear_direct_otp
-          update_attributes(direct_otp: nil, direct_otp_sent_at: nil)
+          update(direct_otp: nil, direct_otp_sent_at: nil)
         end
       end
 
