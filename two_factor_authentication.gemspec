@@ -3,12 +3,12 @@ $:.push File.expand_path("../lib", __FILE__)
 require "two_factor_authentication/version"
 
 Gem::Specification.new do |s|
-  s.name        = "two_factor_authentication"
+  s.name        = "devise_xfactor_authentication"
   s.version     = TwoFactorAuthentication::VERSION.dup
-  s.authors     = ["Dmitrii Golub"]
-  s.email       = ["dmitrii.golub@gmail.com"]
-  s.homepage    = "https://github.com/Houdini/two_factor_authentication"
-  s.summary     = %q{Two factor authentication plugin for devise}
+  s.authors     = ["Jonathon Pickett"]
+  s.email       = ["jpickett76@gmail.com"]
+  s.homepage    = "https://github.com/jpickett76/devise_xfactor_authentication"
+  s.summary     =  %q{Two factor authentication plugin for devise forked from Houdini/two_factor_authentication}
   s.description = <<-EOF
     ### Features ###
     * control sms code pattern
@@ -24,16 +24,16 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'rails', '>= 3.1.1'
-  s.add_runtime_dependency 'devise'
-  s.add_runtime_dependency 'randexp'
-  s.add_runtime_dependency 'rotp', '>= 4.0.0'
-  s.add_runtime_dependency 'encryptor'
+  s.add_runtime_dependency 'rails', '~> 5.0'
+  s.add_runtime_dependency 'devise', '~> 4'
+  s.add_runtime_dependency 'randexp', '~> 0.1'
+  s.add_runtime_dependency 'rotp', '~> 6.0.0'
+  s.add_runtime_dependency 'encryptor', '~> 3.0.0'
 
-  s.add_development_dependency 'bundler'
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec-rails', '>= 3.0.1'
-  s.add_development_dependency 'capybara', '~> 2.5'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'timecop'
+  s.add_development_dependency 'bundler', '~> 2'
+  s.add_development_dependency 'rake', '~> 13'
+  s.add_development_dependency 'rspec-rails', '~> 6.0'
+  s.add_development_dependency 'capybara', '~> 3'
+  s.add_development_dependency 'pry', '~> 0.14'
+  s.add_development_dependency 'timecop', '~> 0.9'
 end

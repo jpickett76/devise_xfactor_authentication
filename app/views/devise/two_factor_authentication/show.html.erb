@@ -16,4 +16,4 @@
 <% else %>
 <%= link_to "Send me a code instead", send("resend_code_#{resource_name}_two_factor_authentication_path"), action: :get %>
 <% end %>
-<%= link_to "Sign out", send("destroy_#{resource_name}_session_path"), :method => :delete %>
+<%= link_to "Sign out", send("destroy_#{resource_name}_session_path"),  data: { turbo: false }, method: :delete %>
