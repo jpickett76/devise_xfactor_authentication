@@ -1,3 +1,3 @@
 module DeviseXfactorAuthentication
-  VERSION = "3.0.0".freeze
+  VERSION = "2.2.11".freeze
 end
