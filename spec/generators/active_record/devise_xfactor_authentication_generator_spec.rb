@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require 'generators/active_record/two_factor_authentication_generator'
+require 'generators/active_record/devise_xfactor_authentication_generator'
 
-describe ActiveRecord::Generators::TwoFactorAuthenticationGenerator, type: :generator do
+describe ActiveRecord::Generators::DeviseXfactorAuthenticationGenerator, type: :generator do
   destination File.expand_path('../../../../../tmp', __FILE__)
 
   before do
@@ -11,7 +11,7 @@ describe ActiveRecord::Generators::TwoFactorAuthenticationGenerator, type: :gene
 
   it 'runs all methods in the generator' do
     gen = generator %w(users)
-    expect(gen).to receive(:copy_two_factor_authentication_migration)
+    expect(gen).to receive(:copy_devise_xfactor_authentication_migration)
     gen.invoke_all
   end
 
@@ -21,7 +21,7 @@ describe ActiveRecord::Generators::TwoFactorAuthenticationGenerator, type: :gene
     end
 
     describe 'the migration' do
-      subject { migration_file('db/migrate/two_factor_authentication_add_to_users.rb') }
+      subject { migration_file('db/migrate/devise_xfactor_authentication_add_to_users.rb') }
 
       it { is_expected.to exist }
       it { is_expected.to be_a_migration }

@@ -1,10 +1,10 @@
-require 'two_factor_authentication/hooks/two_factor_authenticatable'
+require 'devise_xfactor_authentication/hooks/devise_xfactor_authenticatable'
 require 'rotp'
 require 'encryptor'
 
 module Devise
   module Models
-    module TwoFactorAuthenticatable
+    module DeviseXfactorAuthenticatable
       extend ActiveSupport::Concern
 
       module ClassMethods
@@ -56,20 +56,20 @@ module Devise
           ROTP::TOTP.new(totp_secret, options).provisioning_uri(account)
         end
 
-        def need_two_factor_authentication?(request)
+        def need_devise_xfactor_authentication?(request)
           true
         end
 
         def send_new_otp(options = {})
           create_direct_otp options
-          send_two_factor_authentication_code(direct_otp)
+          send_devise_xfactor_authentication_code(direct_otp)
         end
 
         def send_new_otp_after_login?
           !totp_enabled?
         end
 
-        def send_two_factor_authentication_code(code)
+        def send_devise_xfactor_authentication_code(code)
           raise NotImplementedError.new("No default implementation - please define in your class.")
         end
 

@@ -1,7 +1,7 @@
 class EncryptedUser
   extend ActiveModel::Callbacks
   include ActiveModel::Validations
-  include Devise::Models::TwoFactorAuthenticatable
+  include Devise::Models::DeviseXfactorAuthenticatable
 
   define_model_callbacks :create
   attr_accessor :encrypted_otp_secret_key,

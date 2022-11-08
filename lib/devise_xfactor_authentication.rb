@@ -1,4 +1,4 @@
-require 'two_factor_authentication/version'
+require 'devise_xfactor_authentication/version'
 require 'devise'
 require 'active_support/concern'
 require "active_model"
@@ -34,19 +34,19 @@ module Devise
   @@delete_cookie_on_logout = false
 end
 
-module TwoFactorAuthentication
-  NEED_AUTHENTICATION = 'need_two_factor_authentication'
+module DeviseXfactorAuthentication
+  NEED_AUTHENTICATION = 'need_devise_xfactor_authentication'
   REMEMBER_TFA_COOKIE_NAME = "remember_tfa"
 
-  autoload :Schema, 'two_factor_authentication/schema'
+  autoload :Schema, 'devise_xfactor_authentication/schema'
   module Controllers
-    autoload :Helpers, 'two_factor_authentication/controllers/helpers'
+    autoload :Helpers, 'devise_xfactor_authentication/controllers/helpers'
   end
 end
 
-Devise.add_module :two_factor_authenticatable, :model => 'two_factor_authentication/models/two_factor_authenticatable', :controller => :two_factor_authentication, :route => :two_factor_authentication
+Devise.add_module :devise_xfactor_authenticatable, :model => 'devise_xfactor_authentication/models/devise_xfactor_authenticatable', :controller => :devise_xfactor_authentication, :route => :devise_xfactor_authentication
 
-require 'two_factor_authentication/orm/active_record' if defined?(ActiveRecord::Base)
-require 'two_factor_authentication/routes'
-require 'two_factor_authentication/models/two_factor_authenticatable'
-require 'two_factor_authentication/rails'
+require 'devise_xfactor_authentication/orm/active_record' if defined?(ActiveRecord::Base)
+require 'devise_xfactor_authentication/routes'
+require 'devise_xfactor_authentication/models/devise_xfactor_authenticatable'
+require 'devise_xfactor_authentication/rails'

@@ -1,6 +1,6 @@
 es:
   devise:
-    two_factor_authentication:
+    devise_xfactor_authentication:
       success: "Autenticación multi-factor realizada exitosamente."
       attempt_failed: "La autenticación ha fallado."
       max_login_attempts_reached: "Has llegado al límite de intentos fallidos, acceso denegado."

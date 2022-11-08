@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Devise::TwoFactorAuthenticationController, type: :controller do
+describe Devise::DeviseXfactorAuthenticationController, type: :controller do
   describe 'is_fully_authenticated? helper' do
     def post_code(code)
       if Rails::VERSION::MAJOR >= 5

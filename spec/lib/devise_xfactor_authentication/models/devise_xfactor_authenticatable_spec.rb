@@ -1,7 +1,7 @@
 require 'spec_helper'
 include AuthenticatedModelHelper
 
-describe Devise::Models::TwoFactorAuthenticatable do
+describe Devise::Models::DeviseXfactorAuthenticatable do
   describe '#create_direct_otp' do
     let(:instance) { build_guest_user }
 
@@ -107,19 +107,19 @@ describe Devise::Models::TwoFactorAuthenticatable do
     it_behaves_like 'authenticate_totp', EncryptedUser.new
   end
 
-  describe '#send_two_factor_authentication_code' do
+  describe '#send_devise_xfactor_authentication_code' do
     let(:instance) { build_guest_user }
 
     it 'raises an error by default' do
-      expect { instance.send_two_factor_authentication_code(123) }.
+      expect { instance.send_devise_xfactor_authentication_code(123) }.
         to raise_error(NotImplementedError)
     end
 
     it 'is overrideable' do
-      def instance.send_two_factor_authentication_code(code)
+      def instance.send_devise_xfactor_authentication_code(code)
         'Code sent'
       end
-      expect(instance.send_two_factor_authentication_code(123)).to eq('Code sent')
+      expect(instance.send_devise_xfactor_authentication_code(123)).to eq('Code sent')
     end
   end
 
@@ -287,7 +287,7 @@ describe Devise::Models::TwoFactorAuthenticatable do
 
       it 'passes in the correct options to Encryptor.
           We test here output of
-          Devise::Models::TwoFactorAuthenticatable::EncryptionInstanceMethods.encryption_options_for' do
+          Devise::Models::DeviseXfactorAuthenticatable::EncryptionInstanceMethods.encryption_options_for' do
         instance.otp_secret_key = 'testing'
         iv = instance.encrypted_otp_secret_key_iv
         salt = instance.encrypted_otp_secret_key_salt

@@ -1,6 +1,6 @@
 fr:
   devise:
-    two_factor_authentication:
+    devise_xfactor_authentication:
       success: "Validation en deux étapes effectuée avec succès."
       attempt_failed: "La connexion a échoué."
       max_login_attempts_reached: "Limite de tentatives atteinte, accès refusé."

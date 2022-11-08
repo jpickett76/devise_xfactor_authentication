@@ -49,7 +49,7 @@ feature "User of two factor authentication" do
   end
 
   scenario "must be logged in" do
-    visit user_two_factor_authentication_path
+    visit user_devise_xfactor_authentication_path
 
     expect(page).to have_content("Welcome Home")
     expect(page).to have_content("You are signed out")
@@ -77,7 +77,7 @@ feature "User of two factor authentication" do
     end
 
     scenario "is locked out after max failed attempts" do
-      visit user_two_factor_authentication_path
+      visit user_devise_xfactor_authentication_path
 
       max_attempts = User.max_login_attempts
 
@@ -97,7 +97,7 @@ feature "User of two factor authentication" do
     scenario "cannot retry authentication after max attempts" do
       user.update(:second_factor_attempts_count, User.max_login_attempts)
 
-      visit user_two_factor_authentication_path
+      visit user_devise_xfactor_authentication_path
 
       expect(page).to have_content("Access completely denied")
       expect(page).to have_content("You are signed out")
@@ -155,7 +155,7 @@ feature "User of two factor authentication" do
 
       def sms_sign_in
         SMSProvider.messages.clear()
-        visit user_two_factor_authentication_path
+        visit user_devise_xfactor_authentication_path
         fill_in 'code', with: SMSProvider.last_message.body
         click_button 'Submit'
       end
@@ -188,8 +188,8 @@ feature "User of two factor authentication" do
       end
     end
 
-    it 'sets the warden session need_two_factor_authentication key to true' do
-      session_hash = { 'need_two_factor_authentication' => true }
+    it 'sets the warden session need_devise_xfactor_authentication key to true' do
+      session_hash = { 'need_devise_xfactor_authentication' => true }
 
       expect(page.get_rack_session_key('warden.user.user.session')).to eq session_hash
     end
