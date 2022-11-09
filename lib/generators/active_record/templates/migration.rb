@@ -8,6 +8,7 @@ class DeviseXfactorAuthenticationAddTo<%= table_name.camelize %> < ActiveRecord:
     add_column :<%= table_name %>, :direct_otp_sent_at, :datetime
     add_column :<%= table_name %>, :totp_timestamp, :timestamp
     add_column :<%= table_name %>, :otp_secret_key, :string
+    add_column :<%= table_name %>, :uses_two_factor, :boolean, default: false
 
     add_index :<%= table_name %>, :encrypted_otp_secret_key, unique: true
   end
