@@ -5,6 +5,9 @@ class Devise::DeviseXfactorAuthenticationController < DeviseController
   before_action :prepare_and_validate, :handle_devise_xfactor_authentication
 
   def show
+    unless resource.uses_two_factor?
+      after_devise_xfactor_success_for(resource)
+    end
   end
 
   def update

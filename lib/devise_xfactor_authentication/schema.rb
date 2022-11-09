@@ -27,5 +27,9 @@ module DeviseXfactorAuthentication
     def totp_timestamp
       apply_devise_schema :totp_timestamp, Timestamp
     end
+
+    def uses_two_factor
+      apply_devise_schema :uses_two_factor, Boolean, :default => true
+    end
   end
 end
