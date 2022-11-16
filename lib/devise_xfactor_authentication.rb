@@ -32,6 +32,12 @@ module Devise
 
   mattr_accessor :delete_cookie_on_logout
   @@delete_cookie_on_logout = false
+
+  mattr_accessor :twilio_account_sid
+  @@twilio_account_sid = ''
+
+  mattr_accessor :twilio_auth_token
+  @@twilio_auth_token = ''
 end
 
 module DeviseXfactorAuthentication

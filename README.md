@@ -1,39 +1,34 @@
 # Two factor authentication for Devise
-## This is a fork of the orignal two_factor_authentication by plugin for devise forked from Houdini/two_factor_authentication
-## It is currently under some recombobulation, so a some of the below documentation is incorrect. 
-## I will attept to have the readme redone on some level by 11/12/2022 - JP
-<!---
+
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Houdini/two_factor_authentication?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Build Status](https://travis-ci.org/Houdini/two_factor_authentication.svg?branch=master)](https://travis-ci.org/Houdini/two_factor_authentication)
 [![Code Climate](https://codeclimate.com/github/Houdini/two_factor_authentication.svg)](https://codeclimate.com/github/Houdini/two_factor_authentication)
---->
-
-
 
 ## Features
-* Currently Supports sending of OTP codes directly to the user
-* Ability to turn on second factor autnenication on a per user basis
-<!-- * Support for 2 types of OTP codes
+
+* Support for 2 types of OTP codes
  1. Codes delivered directly to the user
- 2. TOTP (Google Authenticator) codes based on a shared secret (HMAC) -->
+ 2. TOTP (Google Authenticator) codes based on a shared secret (HMAC)
 * Configurable OTP code digit length
 * Configurable max login attempts
-<!-- * Customizable logic to determine if a user needs two factor authentication -->
+* Customizable logic to determine if a user needs two factor authentication
 * Configurable period where users won't be asked for 2FA again
-<!--* Option to encrypt the TOTP secret in the database, with iv and salt -->
+* Option to encrypt the TOTP secret in the database, with iv and salt
 
 ## Configuration
 
 ### Initial Setup
-Devise must be installed and set up.
+
 In a Rails environment, require the gem in your Gemfile:
 
-    gem 'devise_xfactor_authentication'
+    gem 'two_factor_authentication'
 
 Once that's done, run:
 
     bundle install
+
+Note that Ruby 2.1 or greater is required.
 
 ### Installation
 
@@ -42,9 +37,10 @@ Once that's done, run:
 To set up the model and database migration file automatically, run the
 following command:
 
-  rails g two_factor_authentication MODEL
+    bundle exec rails g two_factor_authentication MODEL
+
 Where MODEL is your model name (e.g. User or Admin). This generator will add
-`:devise_xfactor_authenticatable` to your model's Devise options and create a
+`:two_factor_authenticatable` to your model's Devise options and create a
 migration in `db/migrate/`, which will add the following columns to your table:
 
 - `:second_factor_attempts_count`
@@ -54,10 +50,37 @@ migration in `db/migrate/`, which will add the following columns to your table:
 - `:direct_otp`
 - `:direct_otp_sent_at`
 - `:totp_timestamp`
-- `:otp_secret_key`
-- `:uses_two_factor`
 
-  run: rake db:migrate
+#### Manual initial setup
+
+If you prefer to set up the model and migration manually, add the
+`:two_factor_authenticatable` option to your existing devise options, such as:
+
+```ruby
+devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+       :trackable, :validatable, :two_factor_authenticatable
+```
+
+Then create your migration file using the Rails generator, such as:
+
+```
+rails g migration AddTwoFactorFieldsToUsers second_factor_attempts_count:integer encrypted_otp_secret_key:string:index encrypted_otp_secret_key_iv:string encrypted_otp_secret_key_salt:string direct_otp:string direct_otp_sent_at:datetime totp_timestamp:timestamp
+```
+
+Open your migration file (it will be in the `db/migrate` directory and will be
+named something like `20151230163930_add_two_factor_fields_to_users.rb`), and
+add `unique: true` to the `add_index` line so that it looks like this:
+
+```ruby
+add_index :users, :encrypted_otp_secret_key, unique: true
+```
+Save the file.
+
+#### Complete the setup
+
+Run the migration with:
+
+    bundle exec rake db:migrate
 
 Add the following line to your model to fully enable two-factor auth:
 
@@ -76,11 +99,6 @@ config.otp_secret_encryption_key = ENV['OTP_SECRET_ENCRYPTION_KEY']
 config.second_factor_resource_id = 'id' # Field or method name used to set value for 2fA remember cookie
 config.delete_cookie_on_logout = false # Delete cookie when user signs out, to force 2fA again on login
 ```
-
-You an also set some of them in your controller as follows an example for a User model:
-
-
-<!--
 The `otp_secret_encryption_key` must be a random key that is not stored in the
 DB, and is not checked in to your repo. It is recommended to store it in an
 environment variable, and you can generate it with `bundle exec rake secret`.
@@ -382,6 +400,6 @@ to set TOTP to DISABLED for a user account:
    current_user.direct_otp? => false
    current_user.totp_enabled? => false
    ```
--->   
+   
 
 

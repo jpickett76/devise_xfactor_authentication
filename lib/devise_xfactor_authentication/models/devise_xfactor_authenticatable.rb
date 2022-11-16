@@ -11,12 +11,14 @@ module Devise
         def has_one_time_password(options = {})
           include InstanceMethodsOnActivation
           include EncryptionInstanceMethods if options[:encrypted] == true
+          
         end
 
         ::Devise::Models.config(
           self, :max_login_attempts, :allowed_otp_drift_seconds, :otp_length,
           :remember_otp_session_for_seconds, :otp_secret_encryption_key,
-          :direct_otp_length, :direct_otp_valid_for, :totp_timestamp, :delete_cookie_on_logout
+          :direct_otp_length, :direct_otp_valid_for, :totp_timestamp, :delete_cookie_on_logout, 
+          :twilio_account_sid, :twilio_auth_token 
         )
       end
 
@@ -104,6 +106,10 @@ module Devise
           )
         end
 
+        def direct_otp_expired?
+          Time.now.utc > direct_otp_sent_at + self.class.direct_otp_valid_for
+        end
+
         private
 
         def without_spaces(code)
@@ -114,9 +120,7 @@ module Devise
           SecureRandom.random_number(10**digits).to_s.rjust(digits, '0')
         end
 
-        def direct_otp_expired?
-          Time.now.utc > direct_otp_sent_at + self.class.direct_otp_valid_for
-        end
+       
 
         def clear_direct_otp
           update(direct_otp: nil, direct_otp_sent_at: nil)

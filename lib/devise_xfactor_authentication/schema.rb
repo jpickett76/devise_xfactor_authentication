@@ -31,13 +31,5 @@ module DeviseXfactorAuthentication
     def uses_two_factor
       apply_devise_schema :uses_two_factor, Boolean, :default => true
     end
-
-    def phone_number
-      apply_devise_schema :phone_number, String
-    end
-
-    def two_factor_delivery_method
-      apply_devise_schema :two_factor_delivery_method, Integer
-    end
   end
 end
