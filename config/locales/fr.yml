@@ -3,6 +3,7 @@ fr:
     devise_xfactor_authentication:
       success: "Validation en deux étapes effectuée avec succès."
       attempt_failed: "La connexion a échoué."
+      does_not_use_two_factor: "Connexion réussie."
       max_login_attempts_reached: "Limite de tentatives atteinte, accès refusé."
       contact_administrator: "Merci de contacter votre administrateur système."
       code_has_been_sent: "Votre code de validation envoyé."

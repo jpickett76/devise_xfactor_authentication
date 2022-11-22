@@ -3,6 +3,7 @@ ru:
     devise_xfactor_authentication:
       success: "Двухфакторная авторизация успешно пройдена."
       attempt_failed: "Неверный код."
+      does_not_use_two_factor: "Выполнен вход."
       max_login_attempts_reached: "Доступ заблокирован. Превышено число попыток авторизации"
       contact_administrator: "Пожалуйста, свяжитесь с системным администратором."
       code_has_been_sent: "Ваш персональный код был отправлен."

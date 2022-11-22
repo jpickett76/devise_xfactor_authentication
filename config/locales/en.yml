@@ -3,6 +3,7 @@ en:
     devise_xfactor_authentication:
       success: "Two factor authentication successful."
       attempt_failed: "Attempt failed."
+      does_not_use_two_factor: "Signed in successfully."
       max_login_attempts_reached: "Access completely denied as you have reached your attempts limit"
       contact_administrator: "Please contact your system administrator."
       code_has_been_sent: "Your authentication code has been sent."

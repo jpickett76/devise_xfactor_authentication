@@ -42,7 +42,7 @@ class Devise::DeviseXfactorAuthenticationController < DeviseController
       set_flash_message!(:notice, :success)
       resource.update(second_factor_attempts_count: 0)
     else
-      set_flash_message!(:notice, "Signed in successfully")
+      set_flash_message!(:notice, :does_not_use_two_factor)
     end
     redirect_to after_devise_xfactor_success_path_for(resource)
   end

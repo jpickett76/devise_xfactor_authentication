@@ -3,6 +3,7 @@ es:
     devise_xfactor_authentication:
       success: "Autenticación multi-factor realizada exitosamente."
       attempt_failed: "La autenticación ha fallado."
+      does_not_use_two_factor: "Iniciado sesión con éxito."
       max_login_attempts_reached: "Has llegado al límite de intentos fallidos, acceso denegado."
       contact_administrator: "Contacte a su administrador de sistema."
       code_has_been_sent: "El código de autenticación ha sido enviado."
