@@ -38,9 +38,12 @@ class Devise::DeviseXfactorAuthenticationController < DeviseController
     else
       sign_in(resource_name, resource, bypass: true)
     end
-    set_flash_message!(:notice, :success)
-    resource.update(second_factor_attempts_count: 0)
-
+    if resource.uses_two_factor?
+      set_flash_message!(:notice, :success)
+      resource.update(second_factor_attempts_count: 0)
+    else
+      set_flash_message!(:notice, "Signed in successfully")
+    end
     redirect_to after_devise_xfactor_success_path_for(resource)
   end
 
